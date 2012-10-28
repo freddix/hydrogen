@@ -9,6 +9,7 @@ Group:		X11/Applications/Sound
 Source0:	http://downloads.sourceforge.net/hydrogen/%{name}-%{version}-%{pre}.tar.gz
 # Source0-md5:	138943721cb51ec0506c910447835dc2
 Source1:	%{name}.desktop
+Patch0:		%{name}-link.patch
 URL:		http://www.hydrogen-music.org/
 #BuildRequires:	ImageMagick-coders
 BuildRequires:	QtGui-devel
@@ -38,6 +39,7 @@ Hydrogen manual and tutorial.
 
 %prep
 %setup -qn hydrogen-music-hydrogen-def9a33
+%patch0 -p1
 
 %build
 mkdir build
