@@ -3,7 +3,7 @@
 Summary:	Pattern based drum machine
 Name:		hydrogen
 Version:	0.9.6
-Release:	0.%{pre}.1
+Release:	0.%{pre}.2
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://downloads.sourceforge.net/hydrogen/%{name}-%{version}-%{pre}.tar.gz
@@ -14,6 +14,7 @@ URL:		http://www.hydrogen-music.org/
 #BuildRequires:	ImageMagick-coders
 BuildRequires:	QtGui-devel
 BuildRequires:	QtXml-devel
+BuildRequires:	QtXmlPatterns-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	flac-c++-devel
 BuildRequires:	jack-audio-connection-kit-devel
@@ -63,11 +64,11 @@ rm -rf $RPM_BUILD_ROOT
 
 #install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
-# clean up documentation
-rm -f $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/doc/*.{docbook,sh}
-rm -f $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/doc/img/*.h2song
-rm -f $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/i18n/*.{sh,ts}
-rm -rf $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/doc/man
+# clean up
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/doc/*.docbook
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/doc/img/*.h2song
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/i18n/*.ts
+%{__rm} -r $RPM_BUILD_ROOT%{_includedir}
 
 install data/doc/img/Tutorial2.h2song \
 	$RPM_BUILD_ROOT%{_datadir}/hydrogen/data/demo_songs
@@ -80,8 +81,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-#%doc AUTHORS ChangeLog README.txt
-%attr(755,root,root) %{_bindir}/*
+%doc AUTHORS ChangeLog DEVELOPERS INSTALL.txt README.txt
+# NOTE: h2synth not package, only a test
+%attr(755,root,root) %{_bindir}/h2cli
+%attr(755,root,root) %{_bindir}/h2player
+%attr(755,root,root) %{_bindir}/hydrogen
 
 %dir %{_datadir}/hydrogen
 %dir %{_datadir}/hydrogen/data
@@ -93,6 +97,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/hydrogen/data/*.wav
 %{_datadir}/hydrogen/data/drumkits
 %{_datadir}/hydrogen/data/img
+%{_datadir}/hydrogen/data/xsd
+
 %{_desktopdir}/*.desktop
 #%{_pixmapsdir}/*.png
 
