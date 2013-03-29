@@ -3,7 +3,7 @@
 Summary:	Pattern based drum machine
 Name:		hydrogen
 Version:	0.9.6
-Release:	0.%{pre}.2
+Release:	0.%{pre}.3
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://downloads.sourceforge.net/hydrogen/%{name}-%{version}-%{pre}.tar.gz
