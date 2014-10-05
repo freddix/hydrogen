@@ -1,17 +1,12 @@
-%define		pre	beta2
-
 Summary:	Pattern based drum machine
 Name:		hydrogen
 Version:	0.9.6
-Release:	0.%{pre}.3
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
-Source0:	http://downloads.sourceforge.net/hydrogen/%{name}-%{version}-%{pre}.tar.gz
-# Source0-md5:	138943721cb51ec0506c910447835dc2
-Source1:	%{name}.desktop
-Patch0:		%{name}-link.patch
+Source0:	https://github.com/hydrogen-music/hydrogen/archive/%{version}.tar.gz
+# Source0-md5:	e4424926a88af82fb2048b3548723827
 URL:		http://www.hydrogen-music.org/
-#BuildRequires:	ImageMagick-coders
 BuildRequires:	QtGui-devel
 BuildRequires:	QtXml-devel
 BuildRequires:	QtXmlPatterns-devel
@@ -39,8 +34,7 @@ Requires:	%{name} = %{version}-%{release}
 Hydrogen manual and tutorial.
 
 %prep
-%setup -qn hydrogen-music-hydrogen-def9a33
-%patch0 -p1
+%setup -q
 
 %build
 mkdir build
@@ -62,8 +56,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-#install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-
 # clean up
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/doc/*.docbook
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/hydrogen/data/doc/img/*.h2song
@@ -73,16 +65,13 @@ rm -rf $RPM_BUILD_ROOT
 install data/doc/img/Tutorial2.h2song \
 	$RPM_BUILD_ROOT%{_datadir}/hydrogen/data/demo_songs
 
-#convert -geometry 48x48 data/img/gray/h2-icon.svg \
-#	$RPM_BUILD_ROOT%{_pixmapsdir}/hydrogen.png
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog DEVELOPERS INSTALL.txt README.txt
-# NOTE: h2synth not package, only a test
+# don't package h2synth, just a test
 %attr(755,root,root) %{_bindir}/h2cli
 %attr(755,root,root) %{_bindir}/h2player
 %attr(755,root,root) %{_bindir}/hydrogen
@@ -133,4 +122,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/hydrogen/data/doc/infoSplash
 
 %{_datadir}/hydrogen/data/doc/manual.html
+%{_datadir}/hydrogen/data/new_tutorial
+
 
